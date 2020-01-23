@@ -3,11 +3,6 @@
     hosts: localhost
     connection: local
     tasks:
-      - name: Install pip (apt)
-        apt:
-          name: python-pip
-          state: present
-
       - name: Install dependencies (pip)
         pip:
           name:
