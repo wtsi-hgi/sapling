@@ -1,0 +1,38 @@
+---
+  - name: Start Treeserve
+    hosts: localhost
+    connection: local
+    tasks:
+      - name: Install pip (apt)
+        apt:
+          name: python-pip
+          state: present
+
+      - name: Install dependencies (pip)
+        pip:
+          name:
+            - botocore
+            - boto3
+            - docker
+            - PyYAML
+            - docker-compose
+
+      - name: Clone Branchserve repo
+        git:
+          repo: 'https://github.com/wtsi-hgi/branchserve.git'
+          dest: /home/ubuntu/branchserve
+
+      - name: Get mpistat chunk from S3
+        aws_s3:
+          aws_access_key: "{{ lookup('env', 'S3_AWS_ACCESS_KEY') }}"
+          aws_secret_key: "{{ lookup('env', 'S3_AWS_SECRET_KEY') }}"
+          bucket: branchserve
+          dest: /home/ubuntu/branchserve/input.gz
+          mode: get
+          object: "mpistat/{{ lookup('env', 'S3_GROUP_NAME') }}.dat.gz"
+          s3_url: "{{ lookup('env', 'S3_SANGER_URL') }}"
+          rgw: yes
+
+      - name: Launch Treeserve docker container
+        docker_compose:
+          project_src: /home/ubuntu/branchserve
