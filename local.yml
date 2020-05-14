@@ -28,6 +28,28 @@
           s3_url: "{{ lookup('env', 'S3_SANGER_URL') }}"
           rgw: yes
 
+      - name: Get groupfile from S3
+        aws_s3:
+          aws_access_key: "{{ lookup('env', 'S3_AWS_ACCESS_KEY') }}"
+          aws_secret_key: "{{ lookup('env', 'S3_AWS_SECRET_KEY') }}"
+          bucket: branchserve
+          dest: /etc/group
+          mode: get
+          object: "mpistat/groupfile"
+          s3_url: "{{ lookup('env', 'S3_SANGER_URL') }}"
+          rgw: yes
+
+      - name: Get passwdfile from S3
+        aws_s3:
+          aws_access_key: "{{ lookup('env', 'S3_AWS_ACCESS_KEY') }}"
+          aws_secret_key: "{{ lookup('env', 'S3_AWS_SECRET_KEY') }}"
+          bucket: branchserve
+          dest: /etc/passwd
+          mode: get
+          object: "mpistat/passwdfile"
+          s3_url: "{{ lookup('env', 'S3_SANGER_URL') }}"
+          rgw: yes
+
       - name: Launch Treeserve docker container
         docker_compose:
           project_src: /home/ubuntu/branchserve
