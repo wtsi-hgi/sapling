@@ -6,11 +6,11 @@
       - name: Install dependencies (pip)
         pip:
           name:
-            - botocore
-            - boto3
-            - docker
-            - PyYAML
-            - docker-compose
+            - botocore==1.17.53
+            - boto3==1.14.53
+            - docker==4.3.1
+            - PyYAML==5.3.1
+            - docker-compose==1.26.2
 
       - name: Clone Branchserve repo
         git:
