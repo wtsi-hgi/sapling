@@ -34,7 +34,7 @@
           aws_access_key: "{{ lookup('env', 'S3_AWS_ACCESS_KEY') }}"
           aws_secret_key: "{{ lookup('env', 'S3_AWS_SECRET_KEY') }}"
           bucket: branchserve
-          dest: /etc/group
+          dest: /home/ubuntu/branchserve/group
           mode: get
           object: "mpistat/groupfile"
           s3_url: "{{ lookup('env', 'S3_SANGER_URL') }}"
@@ -45,7 +45,7 @@
           aws_access_key: "{{ lookup('env', 'S3_AWS_ACCESS_KEY') }}"
           aws_secret_key: "{{ lookup('env', 'S3_AWS_SECRET_KEY') }}"
           bucket: branchserve
-          dest: /etc/passwd
+          dest: /home/ubuntu/branchserve/passwd
           mode: get
           object: "mpistat/passwdfile"
           s3_url: "{{ lookup('env', 'S3_SANGER_URL') }}"
